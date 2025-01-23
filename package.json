@@ -11,10 +11,12 @@
   "license": "",
   "description": "",
   "dependencies": {
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "fs-extra": "^11.3.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
+    "@types/fs-extra": "^11.0.4",
     "@types/node": "^22.10.7",
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",

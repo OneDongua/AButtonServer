@@ -1,6 +1,0 @@
-POST http://localhost:3001/upload
-content-type: application/json
-
-{
-    "msg":"你好中国"
-}
