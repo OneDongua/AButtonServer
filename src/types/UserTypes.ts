@@ -10,9 +10,15 @@ export interface User {
   name: string,
   email: string,
   password: string,
+  hardware: string,
   disability?: string[],
 }
 
 export interface Users {
   [id: number]: User
+}
+
+export interface LoginData {
+  email: string,
+  password: string
 }

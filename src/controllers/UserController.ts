@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import FileUtils from "../utils/FileUtils";
-import { User, Users, UserType } from "../types/UserTypes";
+import { LoginData, User, Users, UserType } from "../types/UserTypes";
 
 // 获取用户信息
 export const getUserByQuery = async (req: Request, res: Response) => {
@@ -10,15 +10,35 @@ export const getUserByQuery = async (req: Request, res: Response) => {
     switch (req.query.mode) {
       case "find":
         const userEmail = req.query.email;
+        const userHardware = req.query.hardware;
         if (userEmail) {
-          const user = Object.values(users).find((user) => user.email === userEmail);
+          const user: User = Object.values(users).find((user) => user.email === userEmail);
           if (user) {
-            res.json({id: user.id, type: user.type, name: user.name});
+            res.json({
+              id: user.id,
+              type: user.type,
+              name: user.name,
+              hardware: user.hardware,
+              disability: user.disability || []
+            });
+          } else {
+            res.status(404).json({ message: "User not found" });
+          }
+        } else if (userHardware) {
+          const user: User = Object.values(users).find((user) => user.hardware === userHardware);
+          if (user) {
+            res.json({
+              id: user.id,
+              type: user.type,
+              name: user.name,
+              hardware: user.hardware,
+              disability: user.disability || []
+            });
           } else {
             res.status(404).json({ message: "User not found" });
           }
         } else {
-          res.status(400).json({ error: "No parameter" });
+          res.status(400).json({ error: "Parameter error" });
         }
         break;
 
@@ -81,6 +101,37 @@ export const createUser = async (req: Request, res: Response) => {
 
     console.info(`User ${newId} created successfully`)
     res.status(201).json({ message: "User created successfully", id: newId, user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+// 用户登录
+export const login = async (req: Request, res: Response) => {
+  try {
+    const users: Users = await FileUtils.readJson(FileUtils.PATH_USERS);
+
+    const data: LoginData = req.body;
+
+    const email = data.email;
+    const password = data.password;
+
+    if (email && password) {
+      const user = Object.values(users).find((user) => user.email === email);
+      if (user && user.password === password) {
+        res.json({
+          id: user.id,
+          type: user.type,
+          name: user.name,
+          email: user.email,
+          hardware: user.hardware,
+          disability: user.disability || []
+        });
+      } else {
+        res.status(401).json({ error: "Incorrect email or password" });
+      }
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
