@@ -1,12 +1,14 @@
 export interface Notification {
+    content: string,
+    time: number,
+    from: string
+}
+
+export interface NotificationData {
     count: number;
-    notifications: string[];
+    notifications: Notification[];
 }
 
-export interface NotificationsData {
-    [email: string]: Notification;
-}
-
-export interface NewNotification {
-    notification: string
+export interface NotificationsList {
+    [email: string]: NotificationData;
 }

@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { NewNotification, NotificationsData } from "../types/NotificationTypes";
+import { Notification, NotificationsList } from "../types/NotificationTypes";
 import FileUtils from "../utils/FileUtils";
 
 export const getNotification = async (req: Request, res: Response) => {
   const email = req.params.email;
   try {
-    const data: NotificationsData = await FileUtils.readJson(FileUtils.PATH_NOTIFICATIONS);
+    const data: NotificationsList = await FileUtils.readJson(FileUtils.PATH_NOTIFICATIONS);
     const notifications = data[email] || { count: 0, notifications: [] };
     res.json(notifications);
   } catch (error) {
@@ -15,14 +15,15 @@ export const getNotification = async (req: Request, res: Response) => {
 
 export const addNotification = async (req: Request, res: Response) => {
   const email = req.params.email;
-  const newNotification: NewNotification = req.body;
+  const newNotification: Notification = req.body.notification;
+  if (!newNotification.time) newNotification.time = Date.now();
   try {
-    const data: NotificationsData = await FileUtils.readJson(FileUtils.PATH_NOTIFICATIONS);
+    const data: NotificationsList = await FileUtils.readJson(FileUtils.PATH_NOTIFICATIONS);
     if (data[email]) {
       data[email].count++;
-      data[email].notifications.push(newNotification.notification);
+      data[email].notifications.push(newNotification);
     } else {
-      data[email] = { count: 1, notifications: [newNotification.notification] };
+      data[email] = { count: 1, notifications: [newNotification] };
     }
     await FileUtils.writeJson(FileUtils.PATH_NOTIFICATIONS, data);
     res.status(200).json({ message: "Success" });
@@ -34,7 +35,7 @@ export const addNotification = async (req: Request, res: Response) => {
 export const clearNotification = async (req: Request, res: Response) => {
   const email = req.params.email;
   try {
-    const data: NotificationsData = await FileUtils.readJson(FileUtils.PATH_NOTIFICATIONS);
+    const data: NotificationsList = await FileUtils.readJson(FileUtils.PATH_NOTIFICATIONS);
     if (data[email]) {
       data[email].count = 0;
       data[email].notifications = [];

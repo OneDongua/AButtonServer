@@ -49,7 +49,10 @@ POST http://localhost:3001/api/notification/875658697@qq.com
 content-type: application/json
 
 {
-    "notification": "新消息"
+    "notification": {
+        "content": "新消息",
+        "from": "server"
+    }
 }
 
 ###
