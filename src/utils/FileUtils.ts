@@ -3,6 +3,7 @@ import path from "path";
 
 export default class FileUtils {
   static PATH_USERS = "src/data/users.json";
+  static PATH_NOTIFICATIONS = "src/data/notifications.json";
   static PATH_LOG = "src/logs/app.log";
 
   // 读取文件
