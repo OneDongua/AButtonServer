@@ -3,21 +3,21 @@ import { Notification, NotificationsList } from "../types/NotificationTypes";
 import FileUtils from "../utils/FileUtils";
 
 export const getNotification = async (req: Request, res: Response) => {
-  const email = req.params.email;
   try {
+    const email = req.params.email;
     const data: NotificationsList = await FileUtils.readJson(FileUtils.PATH_NOTIFICATIONS);
     const notifications = data[email] || { count: 0, notifications: [] };
-    res.json(notifications);
+    res.status(200).json(notifications);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
 export const addNotification = async (req: Request, res: Response) => {
-  const email = req.params.email;
-  const newNotification: Notification = req.body.notification;
-  if (!newNotification.time) newNotification.time = Date.now();
   try {
+    const email = req.params.email;
+    const newNotification: Notification = req.body.notification;
+    if (!newNotification.time) newNotification.time = Date.now();
     const data: NotificationsList = await FileUtils.readJson(FileUtils.PATH_NOTIFICATIONS);
     if (data[email]) {
       data[email].count++;
@@ -33,8 +33,8 @@ export const addNotification = async (req: Request, res: Response) => {
 };
 
 export const clearNotification = async (req: Request, res: Response) => {
-  const email = req.params.email;
   try {
+    const email = req.params.email;
     const data: NotificationsList = await FileUtils.readJson(FileUtils.PATH_NOTIFICATIONS);
     if (data[email]) {
       data[email].count = 0;

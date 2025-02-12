@@ -1,15 +1,12 @@
 POST http://localhost:3001/upload
 content-type: application/json
-
 {
     "msg":"你好中国"
 }
 
 ###
-
 POST http://localhost:3001/api/user
 content-type: application/json
-
 {
     "type": 0,
     "name": "Admin",
@@ -19,14 +16,11 @@ content-type: application/json
 }
 
 ###
-
 GET http://localhost:3001/api/user/0
 
 ###
-
 POST http://localhost:3001/api/user
 content-type: application/json
-
 {
     "type": 1,
     "name": "蒋中文",
@@ -36,15 +30,12 @@ content-type: application/json
 }
 
 ###
-
 GET http://localhost:3001/api/user?mode=find&email=875658697@qq.com
 
 ###
-
 GET http://localhost:3001/api/notification/875658697@qq.com
 
-###
-
+### 
 POST http://localhost:3001/api/notification/875658697@qq.com
 content-type: application/json
 
@@ -55,6 +46,31 @@ content-type: application/json
     }
 }
 
-###
-
+### 删除所有通知
 DELETE http://localhost:3001/api/notification/875658697@qq.com
+
+
+
+### 获取所有帖子
+GET http://localhost:3001/api/post
+
+### 获取特定时间的帖子
+GET http://localhost:3001/api/post/1738563476000
+Content-Type: application/json
+
+### 添加新帖子
+POST http://localhost:3001/api/post
+Content-Type: application/json
+
+{
+  "location": "New York",
+  "title": "Sample Post",
+  "disability": ["vision", "hearing"],
+  "author_id": 1,
+  "content": "This is a sample post content.",
+  "image_count": 2
+}
+
+### 删除特定时间的帖子
+DELETE http://localhost:3001/api/post/1738563476000
+Content-Type: application/json

@@ -2,6 +2,7 @@ import express from "express";
 import userRoutes from "./routes/UserRoutes";
 import path from "path";
 import NotificationRoutes from "./routes/NotificationRoutes";
+import PostRoutes from "./routes/PostRoutes";
 
 const app = express();
 
@@ -9,6 +10,7 @@ app.use(express.json());
 
 app.use("/api", userRoutes);
 app.use("/api", NotificationRoutes)
+app.use("/api", PostRoutes)
 
 app.use("/static", express.static(path.join(__dirname, "../public")));
 
