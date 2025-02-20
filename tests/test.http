@@ -49,8 +49,6 @@ content-type: application/json
 ### 删除所有通知
 DELETE http://localhost:3001/api/notification/875658697@qq.com
 
-
-
 ### 获取所有帖子
 GET http://localhost:3001/api/post
 

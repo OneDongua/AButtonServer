@@ -34,3 +34,9 @@ export interface NewPost {
   author_id: number;
   image_count: number;
 }
+
+export interface Location {
+  latitude: number;
+  longitude: number;
+  altitude: number;
+}
