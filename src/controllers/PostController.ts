@@ -13,6 +13,7 @@ export const getPost = async (req: Request, res: Response) => {
       const time = Number(param);
       if (isNaN(time)) {
         res.status(400).json({ error: "Invalid time format" }); // 校验非法数字
+        return;
       }
       res.status(200).json(posts[time]);
     }
@@ -27,10 +28,46 @@ export const getPostDetail = async (req: Request, res: Response) => {
     const time = Number(req.params.time);
     if (isNaN(time)) {
       res.status(400).json({ error: "Invalid time format" }); // 校验非法数字
+      return;
     }
     const postPath = path.join(FileUtils.PATH_POSTS_FOLDER, time.toString());
     const detail: Detail = await FileUtils.readJson(path.join(postPath, "detail.json"));
     res.status(200).json(detail);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export const getPostImage = async (req: Request, res: Response) => {
+  try {
+    const time = Number(req.params.time);
+    const index = Number(req.params.index);
+
+    if (isNaN(time) || isNaN(index)) {
+      res.status(400).json({ error: "Invalid time format" }); // 校验非法数字
+      return;
+    }
+    const postPath = path.join(FileUtils.PATH_POSTS_FOLDER, time.toString());
+    const imagesPath = path.join(postPath, "images");
+    
+    // 定义常见的图片文件后缀
+    const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp'];
+    let imagePath: string | null = null;
+
+    for (const ext of imageExtensions) {
+      const candidatePath = path.join(imagesPath, `${index}${ext}`);
+      if (await FileUtils.exists(candidatePath)) {
+        imagePath = candidatePath;
+        break;
+      }
+    }
+
+    if (!imagePath) {
+      res.status(404).json({ error: "Image not found" });
+      return;
+    }
+    
+    res.sendFile(path.resolve(imagePath));
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }

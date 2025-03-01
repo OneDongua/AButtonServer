@@ -61,12 +61,11 @@ POST http://localhost:3001/api/post
 Content-Type: application/json
 
 {
-  "location": "New York",
-  "title": "Sample Post",
+  "location": {"latitude": 114.420134, "longitude": 23.07175, "altitude": 20},
+  "title": "Sample Post2",
   "disability": ["vision", "hearing"],
   "author_id": 1,
-  "content": "This is a sample post content.",
-  "image_count": 2
+  "image_count": 1
 }
 
 ### 删除特定时间的帖子

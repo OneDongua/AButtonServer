@@ -63,6 +63,7 @@ export const getUserById = async (req: Request, res: Response) => {
     const userId = Number(req.params.id);
     if (isNaN(userId)) {
       res.status(400).json({ error: "Invalid ID format" }); // 校验非法数字
+      return;
     }
 
     if (users[userId]) {
@@ -90,6 +91,7 @@ export const createUser = async (req: Request, res: Response) => {
 
     if (user.password.length !== 32) {
       res.status(400).json({ error: "Invalid password format" });
+      return;
     }
 
     // 获取所有用户的ID并找到最大值

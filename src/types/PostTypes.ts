@@ -1,5 +1,5 @@
 export interface Post {
-  location: string;
+  location: Location;
   title: string;
   disability: string[];
   count: number;
@@ -27,7 +27,7 @@ export interface Comment {
 }
 
 export interface NewPost {
-  location: string;
+  location: Location;
   title: string;
   content: string;
   disability: string[];
