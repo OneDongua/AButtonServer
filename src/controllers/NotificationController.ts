@@ -16,7 +16,7 @@ export const getNotification = async (req: Request, res: Response) => {
 export const addNotification = async (req: Request, res: Response) => {
   try {
     const email = req.params.email;
-    const newNotification: Notification = req.body.notification;
+    const newNotification: Notification = req.body;
     if (!newNotification.time) newNotification.time = Date.now();
     const data: NotificationsList = await FileUtils.readJson(FileUtils.PATH_NOTIFICATIONS);
     if (data[email]) {
