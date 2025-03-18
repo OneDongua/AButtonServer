@@ -20,6 +20,21 @@ export const getNotification = async (req: Request, res: Response) => {
   }
 };
 
+export const getHelps = async (req: Request, res: Response) => {
+  try {
+    const email = req.params.email;
+    const data: Helps = await FileUtils.readJson(FileUtils.PATH_HELPS);
+    if (email) {
+      const notifications = data[email] || [];
+      res.status(200).json(notifications);
+      return;
+    }
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 export const addNotification = async (req: Request, res: Response) => {
   try {
     const email = req.params.email;

@@ -55,6 +55,12 @@ content-type: application/json
     "type": "help"
 }
 
+### 获取帮助列表
+GET http://localhost:3001/api/helps
+
+### 获取特定帮助
+GET http://localhost:3001/api/helps/875658697@qq.com
+
 ### 删除所有通知
 DELETE http://localhost:3001/api/notification/875658697@qq.com
 
