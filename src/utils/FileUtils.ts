@@ -4,6 +4,7 @@ import path from "path";
 export default class FileUtils {
   static PATH_USERS = "src/data/users.json";
   static PATH_NOTIFICATIONS = "src/data/notifications.json";
+  static PATH_HELPS = "src/data/helps.json";
   static PATH_POSTS = "src/data/posts.json";
   static PATH_POSTS_FOLDER = "src/data/posts";
   static PATH_LOG = "src/logs/app.log";
@@ -21,7 +22,7 @@ export default class FileUtils {
 
   // 读取 json 文件
   static async readJson(filePath: string) {
-    if (!await FileUtils.exists(filePath)) {
+    if (!(await FileUtils.exists(filePath))) {
       await FileUtils.writeFile(filePath, "{}");
     }
     return fs.readJson(filePath);

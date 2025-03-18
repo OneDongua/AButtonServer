@@ -41,7 +41,18 @@ content-type: application/json
 
 {
     "content": "新消息",
-    "from": "server"
+    "from": "server",
+    "type": "normal"
+}
+
+### 
+POST http://localhost:3001/api/notification/875658697@qq.com
+content-type: application/json
+
+{
+    "content": "新帮助消息",
+    "from": "hardware",
+    "type": "help"
 }
 
 ### 删除所有通知
