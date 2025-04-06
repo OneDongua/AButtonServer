@@ -8,10 +8,14 @@ export interface Notification {
 }
 
 export interface NotificationData {
-    count: number;
-    notifications: Notification[];
+  count: number;
+  notifications: Notification[];
 }
 
 export interface NotificationsList {
-    [email: string]: NotificationData;
+  [email: string]: NotificationData;
+}
+
+export interface Helps {
+  [email: string]: Notification[];
 }

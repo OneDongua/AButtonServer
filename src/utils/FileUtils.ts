@@ -23,7 +23,7 @@ export default class FileUtils {
 
   // 读取 json 文件
   static async readJson(filePath: string) {
-    if (!await FileUtils.exists(filePath)) {
+    if (!(await FileUtils.exists(filePath))) {
       await FileUtils.writeFile(filePath, "{}");
     }
     return fs.readJson(filePath);
