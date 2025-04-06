@@ -4,8 +4,10 @@ import path from "path";
 export default class FileUtils {
   static PATH_USERS = "src/data/users.json";
   static PATH_NOTIFICATIONS = "src/data/notifications.json";
+  static PATH_GLOBAL_NOTIFICATIONS = "src/data/global_notifications.json";
   static PATH_POSTS = "src/data/posts.json";
   static PATH_POSTS_FOLDER = "src/data/posts";
+  static PATH_CHATS_FOLDER = "src/data/chats";
   static PATH_LOG = "src/logs/app.log";
 
   // 读取文件

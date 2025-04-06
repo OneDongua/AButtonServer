@@ -49,7 +49,7 @@ export const getPostImage = async (req: Request, res: Response) => {
     }
     const postPath = path.join(FileUtils.PATH_POSTS_FOLDER, time.toString());
     const imagesPath = path.join(postPath, "images");
-    
+
     // 定义常见的图片文件后缀
     const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp'];
     let imagePath: string | null = null;
@@ -66,7 +66,7 @@ export const getPostImage = async (req: Request, res: Response) => {
       res.status(404).json({ error: "Image not found" });
       return;
     }
-    
+
     res.sendFile(path.resolve(imagePath));
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
@@ -92,8 +92,10 @@ export const addPost = async (req: Request, res: Response) => {
       author_id: newPost.author_id,
       title: newPost.title,
       content: newPost.content,
+      disability: newPost.disability,
       comment: [],
-      image_count: newPost.image_count
+      image_count: newPost.image_count,
+      location: newPost.location
     }
     await FileUtils.writeJson(path.join(newPath, "detail.json"), detail)
     res.status(200).json({ message: "Success" });
@@ -105,6 +107,18 @@ export const addPost = async (req: Request, res: Response) => {
 export const deletePost = async (req: Request, res: Response) => {
   try {
     const time = req.params.time;
+    if (isNaN(Number(time))) {
+      res.status(400).json({ error: "Invalid time format" })
+    }
+
+    const posts: Posts = await FileUtils.readJson(FileUtils.PATH_POSTS);
+    if (!posts.hasOwnProperty(time)) {
+      res.status(404).json({ error: "Post not found" });
+      return;
+    }
+    delete posts[Number(time)];
+    await FileUtils.writeJson(FileUtils.PATH_POSTS, posts);
+    
     await FileUtils.delete(path.join(FileUtils.PATH_POSTS_FOLDER, time))
     res.status(200).json({ message: "Success" });
   } catch (error) {

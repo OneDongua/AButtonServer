@@ -1,7 +1,10 @@
+import { Location } from "./PostTypes";
+
 export interface Notification {
     content: string,
     time: number,
-    from: string
+    from: string,
+    location?: Location
 }
 
 export interface NotificationData {

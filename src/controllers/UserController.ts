@@ -120,7 +120,7 @@ export const login = async (req: Request, res: Response) => {
     const password = data.password;
 
     if (email && password) {
-      const user = Object.values(users).find((user) => user.email === email);
+      const user: User = Object.values(users).find((user) => user.email === email);
       if (user && user.password === password) {
         res.json({
           id: user.id,
@@ -128,7 +128,8 @@ export const login = async (req: Request, res: Response) => {
           name: user.name,
           email: user.email,
           hardware: user.hardware,
-          disability: user.disability || []
+          disability: user.disability || [],
+          tag: user.tag || []
         });
       } else {
         res.status(401).json({ error: "Incorrect email or password" });

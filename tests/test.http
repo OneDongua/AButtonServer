@@ -44,14 +44,36 @@ content-type: application/json
     "from": "server"
 }
 
+### 
+POST http://localhost:3001/api/notification/875658697@qq.com
+content-type: application/json
+
+{
+    "content": "新全局消息",
+    "from": "test",
+    "location": {"latitude": 23.074334, "longitude": 114.415251, "altitude": 20}
+}
+
+###
+GET http://localhost:3001/api/global/notification/
+
 ### 删除所有通知
 DELETE http://localhost:3001/api/notification/875658697@qq.com
+
+### 删除通知
+DELETE http://localhost:3001/api/notification/875658697@qq.com/1743834867634
+
+### 删除全局通知
+DELETE http://localhost:3001/api/global/notification/1743824694429
+
+### 删除所有全局通知
+DELETE http://localhost:3001/api/global/notification/
 
 ### 获取所有帖子
 GET http://localhost:3001/api/post
 
 ### 获取特定时间的帖子
-GET http://localhost:3001/api/post/1738563476000
+GET http://localhost:3001/api/post/1740805721290
 Content-Type: application/json
 
 ### 添加新帖子
@@ -59,13 +81,18 @@ POST http://localhost:3001/api/post
 Content-Type: application/json
 
 {
-  "location": {"latitude": 114.420134, "longitude": 23.07175, "altitude": 20},
-  "title": "Sample Post2",
+  "location": {"latitude": 23.074334, "longitude": 114.415251, "altitude": 20},
+  "title": "Sample Post 3",
+  "content": "Sample Post Content",
   "disability": ["vision", "hearing"],
   "author_id": 1,
   "image_count": 1
 }
 
 ### 删除特定时间的帖子
-DELETE http://localhost:3001/api/post/1738563476000
+DELETE http://localhost:3001/api/post/1741437760848
+Content-Type: application/json
+
+### 获取特定时间的帖子详情
+GET http://localhost:3001/api/post/1740805721290/detail/
 Content-Type: application/json

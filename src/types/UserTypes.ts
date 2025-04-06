@@ -1,7 +1,6 @@
 export enum UserType {
   ADMIN = 0,
-  KIN = 1, // 家属
-  VOLUNTEER = 2
+  USER = 1,
 }
 
 export interface User {
@@ -12,6 +11,7 @@ export interface User {
   password: string,
   hardware: string,
   disability?: string[],
+  tag?: string[],
 }
 
 export interface Users {

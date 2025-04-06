@@ -14,8 +14,10 @@ export interface Detail {
   author_id: number;
   title: string;
   content: string;
+  disability: string[];
   comment: Comment[];
   image_count: number;
+  location: Location;
 }
 
 export interface Comment {
