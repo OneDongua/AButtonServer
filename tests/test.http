@@ -16,7 +16,7 @@ content-type: application/json
 }
 
 ###
-GET http://localhost:3001/api/user/0
+GET http://localhost:3001/api/user/4
 
 ###
 POST http://localhost:3001/api/user
@@ -95,4 +95,22 @@ Content-Type: application/json
 
 ### 获取特定时间的帖子详情
 GET http://localhost:3001/api/post/1740805721290/detail/
+Content-Type: application/json
+
+### 获取聊天列表
+GET http://localhost:3001/api/chat/list/4
+Content-Type: application/json
+
+### 发送消息
+POST http://localhost:3001/api/chat/1743836997193
+Content-Type: application/json
+
+{
+    "id": "0",
+    //"name": "Admin",
+    "message": "你好"
+}
+
+### 获取聊天
+GET http://localhost:3001/api/chat/1743836997193
 Content-Type: application/json

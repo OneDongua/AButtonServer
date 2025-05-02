@@ -38,15 +38,6 @@ export const addNotification = async (req: Request, res: Response) => {
     } else {
       data[email] = { count: 1, notifications: [newNotification] };
     }
-    if (newNotification.type === "help") {
-      const helps: Helps = await FileUtils.readJson(FileUtils.PATH_HELPS);
-      if (helps[email]) {
-        helps[email].push(newNotification);
-      } else {
-        helps[email] = [newNotification];
-      }
-      await FileUtils.writeJson(FileUtils.PATH_HELPS, helps);
-    }
     await FileUtils.writeJson(FileUtils.PATH_NOTIFICATIONS, data);
     if (newNotification.location) {
       handleAddGlobalNotification(newNotification)

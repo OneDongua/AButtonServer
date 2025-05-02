@@ -1,5 +1,10 @@
 export interface Message {
-  user: string;
+  id: number;
+  name: string;
   message: string;
   time: number;
+}
+
+export interface ChatList {
+  [id: string]: number[];
 }

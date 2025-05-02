@@ -6,6 +6,7 @@ export default class FileUtils {
   static PATH_NOTIFICATIONS = "src/data/notifications.json";
   static PATH_GLOBAL_NOTIFICATIONS = "src/data/global_notifications.json";
   static PATH_POSTS = "src/data/posts.json";
+  static PATH_CHATS = "src/data/chats.json";
   static PATH_POSTS_FOLDER = "src/data/posts";
   static PATH_CHATS_FOLDER = "src/data/chats";
   static PATH_LOG = "src/logs/app.log";
@@ -22,9 +23,9 @@ export default class FileUtils {
   }
 
   // 读取 json 文件
-  static async readJson(filePath: string) {
+  static async readJson(filePath: string, defaultStr?: string) {
     if (!(await FileUtils.exists(filePath))) {
-      await FileUtils.writeFile(filePath, "{}");
+      await FileUtils.writeFile(filePath, defaultStr || "{}");
     }
     return fs.readJson(filePath);
   }
